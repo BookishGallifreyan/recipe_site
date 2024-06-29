@@ -1,11 +1,12 @@
 import pg from "pg";
-import { RecipeCard } from "@/components/RecipeCard";
+import { CommentCard } from "@/components/CommentCard";
+// import { RecipeComment } from "@/discussion/page.js";
 import { connect } from "@/utils/connect";
 import Link from "next/link";
-export default async function Home() {
+export default async function posts() {
   const db = connect();
-  const recipes = (await db.query("SELECT * FROM recipes")).rows;
-  console.log(recipes);
+  const comments = (await db.query("SELECT * FROM comments")).rows;
+  console.log(comments);
   return (
     <div className="flex-wrap grid-flow-row">
       <h1>Recipe page!</h1>
@@ -23,8 +24,8 @@ export default async function Home() {
           </li>
         </ul>
       </nav>
-      {recipes.map((recipe) => {
-        return <RecipeCard recipe={recipe} />;
+      {comments.map((comment) => {
+        return <CommentCard comments={comment} />;
       })}
     </div>
   );
